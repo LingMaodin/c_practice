@@ -11,22 +11,19 @@ void Fibonacci(int n,int a[]);
 int main(void)
 {
     /*  
-    字符串反转（hello world）
-    char str[]="Hello World!";
+    char str[]="Hello World!";//字符串反转（hello world）
     printf("原字符串为：%s\n",str);
     reverseStr(str);
     printf("反转后字符串为：%s\n",str);
 
-    质数判断
-    int Num;
+    int Num;//质数判断
     scanf("%d",&Num);
     if (isPrime(Num)==1)
         printf("Num是质数");
     else
         printf("Num不是质数");
 
-    冒泡排序（随机成绩单）
-    const int N=10;
+    const int N=10;//冒泡排序（随机成绩单）
     srand(time(NULL));
     int grade[N];
     for (int i = 0; i < N; i++)
@@ -35,27 +32,13 @@ int main(void)
         printf("gride[%d]=%d\n",i,grade[i]);        
     }
     printf("\n\n");
-    for (int i = 0; i < N-1; i++)
-    {
-        int flag=1;
-        for (int j = 0; j < N-1-i; j++)
-        {
-            if (grade[j]>grade[j+1])
-            {   
-                swap(&grade[j],&grade[j+1]);
-                flag=0;
-            }      
-        }
-        if (flag==1)
-            break;          
-    }
+    sort_bubble(grade,N);
     for (int i = 0; i < N; i++)
     {
         printf("grade=%d\n",grade[i]);
     }
-    
-    计数排序(随机成绩单) 
-    const int N=10;
+       
+    const int N=10;//计数排序(随机成绩单) 
     srand(time(NULL));
     int grade[N];
     for (int i = 0; i < N; i++)
@@ -69,21 +52,7 @@ int main(void)
     {
         printf("grade[%d]=%d\n",i,grade[i]);
     }
-*/
-    #include <stdio.h>
-
-
-    int n;
-    scanf("%d",&n);
-    for (int i=0; i<=n; i++) {
-        if (i%4==0) {
-            continue;
-        }
-        printf("%d\n",i);
-    }
-
-
-      
+*/   
     system("pause");
     return 0;
 }
