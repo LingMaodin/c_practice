@@ -7,6 +7,15 @@ void swap(int *a,int *b);
 void reverseStr(char *str);
 void sort_count(int a[],int n,int max);
 void Fibonacci(int n,int a[]);
+struct Node* createNode(int data);
+void printList(struct Node *head);
+void freeList(struct Node *head);
+
+struct Node//È«¾Ö½á¹¹Ìå£ºº¯ÊýÄÚ²»ÄÜÓÃ¾Ö²¿½á¹¹Ìå
+{
+    int data;
+    struct Node *next;
+};
 
 int main(void)
 {
@@ -52,7 +61,10 @@ int main(void)
     {
         printf("grade[%d]=%d\n",i,grade[i]);
     }
-*/   
+*/  
+
+
+
     system("pause");
     return 0;
 }
@@ -151,3 +163,50 @@ void sort_count(int a[],int size,int max)//¼ÆÊýÅÅÐò(ÊÖ¶¯ÇåÁã)£ºº¯ÊýÄÚ¶¨ÒåµÄÊý×éµ
         }
     }    
 }
+
+struct Node* createNode(int data)//ÐÂ½¨Á´±í½Úµã
+{
+    struct Node *newNode;//¶¨ÒåÒ»¸ö½á¹¹ÌåÀàÐÍµÄÖ¸Õë£¬Ö¸ÕëÀïÊÇÐÂ½ÚµãµØÖ·
+    newNode=(struct Node*)malloc(sizeof(struct Node));//¸øÖ¸Õë·ÖÅäÄÚ´æ
+    if (newNode==NULL)
+    {
+        printf("Error");
+        return NULL;
+    }   
+    newNode->data=data;//ÓÃÖ¸ÕëÖ¸Ïòdata£¬¸ø½Úµã¸³Öµ
+    newNode->next=NULL;//ÓÃÖ¸ÕëÖ¸Ïònext£¨ÏÂ¸ö½ÚµãµÄµØÖ·£©£¬ÏÂ¸ö½ÚµãµØÖ·ÎªNULL
+    return newNode;
+}
+
+void insertAtHead(struct Node **head, int data)//ÔÚÔ­ÏÈµÄÁ´±íµÄÍ·²åÈëÐÂ½Úµã
+{
+    struct Node *newNode=createNode(data);//ÐÂ½¨½Úµã
+    newNode->next=*head;//°ÑÔ­ÓÐ½Úµã½Óµ½ÐÂ½ÚµãºóÃæ
+    *head=newNode; //°ÑÐÂ½Úµã±ä³ÉÍ·½Úµã
+}
+
+void printList(struct Node *head)//´òÓ¡Á´±í
+{
+    int i=0;//¼ÆÊý£ºµÚi¸ö½Úµã
+    struct Node *temp;//ÁÙÊ±Ö¸Õë£º²»ÐÞ¸Ähead
+    temp=head;
+    while (temp!=NULL)//Ã»µ½½áÎ²¾Í¼ÌÐø
+    {
+        printf("Á´±íµÚ%d¸ödataÎª%d",i,temp->data);
+        temp=temp->next;//ÏÂÒ»¸ö½Úµã
+        i++;//¼ÆÊý+1
+    } 
+}
+
+void freeList(struct Node *head)
+{
+    struct Node *now,*next;
+    now=head;
+    while (now!=NULL)
+    {
+        next=now->next;
+        free(now);
+        now=next;
+    }
+}
+
