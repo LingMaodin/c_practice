@@ -3,21 +3,23 @@
 #include <time.h>
 #include <math.h>
 int is_prime(int n);
-void swap(int *a, int *b);
-void reverse_str(char *str);
-void sort_bubble(int a[], int N);
-void sort_count(int a[], int n, int max);
-void Fibonacci(int n, int a[]);
+void swap(int *a, int *b);                                          // ½»»»Á½¸öÊı
+void reverse_str(char *str);                                        // ·´×ª×Ö·û´®
+void sort_bubble(int a[], int N);                                   // Ã°ÅİÅÅĞò
+void sort_count(int a[], int n, int max);                           // ¼ÆÊıÅÅĞò
+void Fibonacci(int n, int a[]);                                     // ì³²¨ÄÇÆõÊıÁĞ
+void transpose(int n, int m, long long a[n][m], long long b[m][n]); // ¾ØÕó×ªÖÃ
+void Pascal_triangle(int n);                                   // Ñî»ÔÈı½Ç
 // Á´±íÏà¹Ø
-struct Node *create_node(int data);
-void insert_head(struct Node **head, int data);
-void print_node(struct Node *head);
-void free_node(struct Node *head);
-int delete_head(struct Node **head);
-void insert_end(struct Node **head, int data);
-void reverse_node(struct Node **head);
-void delete_value(struct Node **head, int value);
-int josephus(int n, int k, int m);
+struct Node *create_node(int data);               // ĞÂ½¨Á´±í½Úµã
+void insert_head(struct Node **head, int data);   // Í·²å·¨
+void insert_end(struct Node **head, int data);    // Î²²å·¨
+void print_node(struct Node *head);               // ´òÓ¡Á´±í
+void free_node(struct Node *head);                // ÊÍ·ÅÁ´±í
+int delete_head(struct Node **head);              // É¾³ıÍ·½Úµã
+void reverse_node(struct Node **head);            // ·´×ªÁ´±í
+void delete_value(struct Node **head, int value); // É¾³ıdata=value½Úµã
+int josephus(int n, int k, int m);                // Ô¼Éª·ò»·ÎÊÌâ
 
 struct Node // È«¾Ö½á¹¹Ìå£ºº¯ÊıÄÚ²»ÄÜÓÃ¾Ö²¿½á¹¹Ìå
 {
@@ -76,13 +78,17 @@ int main(void) // Ö÷º¯Êı£º²âÊÔ¸÷¸öº¯Êı
     scanf("%d %d %d", &n, &k, &m);
     int winner = josephus(n, k, m);
     printf("×îºóÊ£ÏÂµÄÈËµÄ±àºÅÊÇ£º%d\n", winner);
+    //¶şÏîÊ½ÏµÊı
+    int n;
+    printf("ÇëÊäÈëÑî»ÔÈı½ÇĞĞÊı£º");
+    scanf("%d", &n);
+    Pascal_triangle(n);
 
     system("pause");
     return 0;
 
 */
 }
-
 void reverse_str(char *str) // µßµ¹×Ö·û´®
 {
     char *a, *b, temp;
@@ -325,25 +331,25 @@ int josephus(int n, int k, int m) // Ô¼Éª·ò»·ÎÊÌâ£ºn¸öÈË£¬´ÓµÚk¸öÈË¿ªÊ¼±¨Êı£¬±¨Ê
         return -1;
     }
     struct Node *before = NULL, *now = NULL;
-    for (int i = n - 1; i >= 0; i--)//´´½¨Á´±í£¬±àºÅ´Ón-1µ½0
+    for (int i = n - 1; i >= 0; i--) // ´´½¨Á´±í£¬±àºÅ´Ón-1µ½0
     {
-        insert_head(&now, i); 
+        insert_head(&now, i);
     }
     before = now;
-    while (before->next != NULL)//ÕÒ½áÎ²
-    { 
+    while (before->next != NULL) // ÕÒ½áÎ²
+    {
         before = before->next;
     }
-    before->next = now; //ĞÎ³É»·
-    for (int i = 0; i < k; i++)//ÒÆ¶¯µ½µÚk¸öÈË
-    { 
+    before->next = now;         // ĞÎ³É»·
+    for (int i = 0; i < k; i++) // ÒÆ¶¯µ½µÚk¸öÈË
+    {
         before = before->next;
         now = now->next;
     }
-    while (before->next != before)//Ö»ÒªÊ£ÏÂ²»Ö¹Ò»¸öÈË
-    { 
-        for (int i = 0; i < m-1; i++)// ±¨Êıµ½m
-        { 
+    while (before->next != before) // Ö»ÒªÊ£ÏÂ²»Ö¹Ò»¸öÈË
+    {
+        for (int i = 0; i < m - 1; i++) // ±¨Êıµ½m
+        {
             before = before->next;
             now = now->next;
         }
@@ -354,4 +360,32 @@ int josephus(int n, int k, int m) // Ô¼Éª·ò»·ÎÊÌâ£ºn¸öÈË£¬´ÓµÚk¸öÈË¿ªÊ¼±¨Êı£¬±¨Ê
     int winner = before->data;
     free(before); // ÊÍ·Å×îºóÊ£ÏÂµÄ½Úµã
     return winner;
+}
+
+void transpose(int n, int m, long long a[n][m], long long b[m][n]) // ¾ØÕó×ªÖÃ
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+            b[j][i] = a[i][j];
+    }
+}
+
+void Pascal_triangle(int n)
+{
+    long long a[n][n]; 
+    for (int i = 0; i < n; i++)
+    {
+        a[i][0] = 1;//³õÊ¼»¯Ã¿ĞĞµÄÊ×
+        a[i][i] = 1;//³õÊ¼»¯Ã¿ĞĞµÄÎ²
+        for (int j = 1; j < i; j++)// µ± i < 2 Ê±£¬Ñ­»·Ìõ¼ş j < i ²»Âú×ã£¬Ö±½ÓÌø¹ı
+            a[i][j] = a[i - 1][j - 1] + a[i - 1][j];
+    }
+    printf("Ñî»ÔÈı½Ç£º\n");
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j <= i; j++)
+            printf("%-5lld", a[i][j]);// %-5lld ×ó¶ÔÆë£¬Õ¼5¸ö×Ö·û¿í¶È
+        printf("\n");
+    }
 }
