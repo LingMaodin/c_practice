@@ -10,6 +10,7 @@ void sort_count(int a[], int n, int max);                           // 计数排序
 void Fibonacci(int n, int a[]);                                     // 斐波那契数列
 void transpose(int n, int m, long long a[n][m], long long b[m][n]); // 矩阵转置
 void Pascal_triangle(int n);                                   // 杨辉三角
+void print_boom(int n,int m,char boom[n][m]);               // 扫雷打印函数
 // 链表相关
 struct Node *create_node(int data);               // 新建链表节点
 void insert_head(struct Node **head, int data);   // 头插法
@@ -386,6 +387,34 @@ void Pascal_triangle(int n)
     {
         for (int j = 0; j <= i; j++)
             printf("%-5lld", a[i][j]);// %-5lld 左对齐，占5个字符宽度
+        printf("\n");
+    }
+}
+
+void print_boom(int n,int m,char boom[n][m])// 扫雷打印函数:*代表雷，数字代表周围雷的数量
+{
+    int dx[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+    int dy[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+    int x = 0, y = 0,sum=0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {          
+            if (boom[i][j] == '*') {
+                printf("*");
+            } 
+            else {
+                sum=x=y=0;
+                for (int p = 0; p < 8; p++) {
+                    x = i + dx[p];
+                    y = j + dy[p];
+                    if (x >= 0 && x < n && y >= 0 && y < m) {
+                        if (boom[x][y] == '*') {
+                            sum++;
+                        }
+                    }
+                }
+                printf("%d", sum);
+            }
+        }
         printf("\n");
     }
 }
